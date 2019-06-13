@@ -22,6 +22,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
+    <script src="assets/js/code.js"></script>
 
     <!-- link to firebase -->
     <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
@@ -40,10 +41,10 @@
             </div>
         </div>
         <!-- card class with the table information -->
-        <div class="card">
-            <div class="card-header mt-5">Current Train Schedule</div>
+        <div class="card mt-5">
+            <div class="card-header">Current Train Schedule</div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-striped table-dark">
                     <thead>
                         <th scope="col">Train Name</th>
                         <th scope="col">Destination</th>
@@ -59,7 +60,34 @@
             </div>
         </div>
 
+        <!-- card containing input form -->
+        <div class="card mt-5">
+            <div class="card-header">Add Trains</div>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label>Train Name</label>
+                        <input type="text" class="form-control" id="train">
+                    </div>
+                    <div class="form-group">
+                        <label>Destination</label>
+                        <input type="text" class="form-control" id="dest">
+                    </div>
+                    <div class="form-group">
+                        <label>First Train Time (HH:mm-military time)</label>
+                        <input type="number" class="form-control" id="first">
+                    </div>
+                    <div class="form-group">
+                        <label>Frequency (min)</label>
+                        <input type="number" class="form-control" id="freq">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+
     </div>
+
 
 
 

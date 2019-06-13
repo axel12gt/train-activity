@@ -1,3 +1,6 @@
+body,.card{
+    background: grey;
+}
 .card-header{
     background: indigo;
     color: white;
