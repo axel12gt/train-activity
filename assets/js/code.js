@@ -11,7 +11,6 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig)
 
-  var minutesAway
   var dataRef = firebase.database()
 
   var name = ""
@@ -19,7 +18,11 @@
   var first = 0
   var freq = ""
 
-
+  var firstTimeConverted = moment(first, "HH:mm").subtract(1, "years");
+  var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+  var tRemainder = diffTime % freq;
+  var tMinutesTillTrain = freq - tRemainder;
+  var minutesAway = moment().add(tMinutesTillTrain, "minutes");
 
   var elements = {
     createRow: function () {
@@ -63,3 +66,7 @@
     elements.ref()
     elements.display()
   })
+
+  setInterval(() => { elements.display()
+    
+  }, 15000);
