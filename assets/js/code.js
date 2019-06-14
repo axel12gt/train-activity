@@ -7,34 +7,81 @@
     storageBucket: "train-activity-976f2.appspot.com",
     messagingSenderId: "716338364140",
     appId: "1:716338364140:web:a12b1f8b4c3fffb2"
-  };
+  }
   // Initialize Firebase
-//   firebase.initializeApp(firebaseConfig);
+  firebase.initializeApp(firebaseConfig)
 
-var elements = {
-    createRow: function(){
-        name = $("#train")
-        dest = $("#dest")
-        first = $("#first")
-        freq = $("#freq")
+  var minutesAway
+  var dataRef = firebase.database()
 
-        console.log(name,dest,first,freq)
-        //creates a new table row element
-        var tRow= $("<tr>")
+  var name = ""
+  var dest = ""
+  var first = 0
+  var freq = ""
 
-        //creates table cells for the table
-        var nameTd = $("<td>").text(name)
-        var destTd  = $("<td>").text(dest)
-        var firstTd = $("<td>").text(first)
-        var freqTd = $("<td>").text(freq)
 
-        // tRow.append(nameTd,destTd,firstTd,freqTd)
+
+  var elements = {
+    createRow: function () {
+
+      //Gets the values from the form
+      name = $("#train").val().trim()
+      dest = $("#dest").val().trim()
+      first = $("#first").val().trim()
+      freq = $("#freq").val().trim()
+
+      console.log(name, dest, first, freq)
+    },
+
+    ref: function () {
+      console.log("isworking")
+      dataRef.ref().push({
+        name: name,
+        dest: dest,
+        first: first,
+        freq: freq,
+        dateAdded: firebase.database.ServerValue.TIMESTAMP
+      })},
+
+    display: function(){
+      dataRef.ref().on("child_added", function(childSnapshot) {
+        $("tbody").append("<tr><td> " +
+        childSnapshot.val().name +
+        " </td><td> " + childSnapshot.val().dest +
+        " </td><td class='member-age'> " + childSnapshot.val().first +
+        " </td><td class='member-comment'> " + childSnapshot.val().freq +
+        " </td>"+"<td>"+ minutesAway +"</td>"+"</tr>");
+      })
     }
-}
+  }
 
-name = $("#train")
-dest = $("#dest")
-first = $("#first")
-freq = $("#freq")
+  $("button").on("click", function(event){
+    console.log("is working")
+    event.preventDefault()
+    
+    elements.createRow()
+    elements.ref()
+    elements.display()
+  })
 
-console.log(name.value)
+  // dataRef.ref().on("child_added", function(childSnapshot){
+  //   elements.display()
+  // })
+
+  // name = $("#train")
+  // dest = $("#dest")
+  // first = $("#first")
+  // freq = $("#freq")
+
+  // console.log(name.value)
+
+  // //creates a new table row element
+  // var tRow= $("<tr>")
+
+  // //creates table cells for the table
+  // var nameTd = $("<td>").text(name)
+  // var destTd  = $("<td>").text(dest)
+  // var firstTd = $("<td>").text(first)
+  // var freqTd = $("<td>").text(freq)
+
+  // // tRow.append(nameTd,destTd,firstTd,freqTd)
