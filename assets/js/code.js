@@ -63,25 +63,3 @@
     elements.ref()
     elements.display()
   })
-
-  // dataRef.ref().on("child_added", function(childSnapshot){
-  //   elements.display()
-  // })
-
-  // name = $("#train")
-  // dest = $("#dest")
-  // first = $("#first")
-  // freq = $("#freq")
-
-  // console.log(name.value)
-
-  // //creates a new table row element
-  // var tRow= $("<tr>")
-
-  // //creates table cells for the table
-  // var nameTd = $("<td>").text(name)
-  // var destTd  = $("<td>").text(dest)
-  // var firstTd = $("<td>").text(first)
-  // var freqTd = $("<td>").text(freq)
-
-  // // tRow.append(nameTd,destTd,firstTd,freqTd)
