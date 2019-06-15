@@ -15,14 +15,10 @@
 
   var name = ""
   var dest = ""
-  var first = 0
+  var first = ""
   var freq = ""
 
-  var firstTimeConverted = moment(first, "HH:mm").subtract(1, "years");
-  var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-  var tRemainder = diffTime % freq;
-  var tMinutesTillTrain = freq - tRemainder;
-  var minutesAway = moment().add(tMinutesTillTrain, "minutes");
+
 
   var elements = {
     createRow: function () {
@@ -47,26 +43,40 @@
       })},
 
     display: function(){
-      dataRef.ref().on("child_added", function(childSnapshot) {
-        $("tbody").append("<tr><td> " +
-        childSnapshot.val().name +
-        " </td><td> " + childSnapshot.val().dest +
-        " </td><td class='member-age'> " + childSnapshot.val().first +
-        " </td><td class='member-comment'> " + childSnapshot.val().freq +
-        " </td>"+"<td>"+ minutesAway +"</td>"+"</tr>");
-      })
+
+      $("tbody").empty()
+        dataRef.ref().on("child_added", function(childSnapshot) {
+          var firstTimeConverted = moment(childSnapshot.val().first, "HH:mm").subtract(1, "years");
+          // console.log(moment(firstTimeConverted),"HH:mm")
+          var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+          console.log(diffTime)
+          var tRemainder = diffTime % childSnapshot.val().freq;
+          console.log(tRemainder)
+          var tMinutesTillTrain = childSnapshot.val().freq - tRemainder;
+          console.log(tMinutesTillTrain)
+          var minutesAway = moment().add(tMinutesTillTrain, "minutes");
+          console.log(moment(minutesAway).format("hh:mm"))
+          
+          $("tbody").append("<tr><td> " +
+          childSnapshot.val().name +
+          " </td><td> " + childSnapshot.val().dest +
+          " </td><td> " + childSnapshot.val().freq +
+          " </td><td> " + childSnapshot.val().first +
+          " </td><td> " + moment(minutesAway).format("hh:mm") +
+          " </td><td> " + moment(tMinutesTillTrain) + "</td></tr>");
+        })
+      
+
     }
   }
 
   $("button").on("click", function(event){
     console.log("is working")
     event.preventDefault()
-    
     elements.createRow()
     elements.ref()
     elements.display()
   })
 
-  setInterval(() => { elements.display()
-    
-  }, 15000);
+  elements.display()
+  
