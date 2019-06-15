@@ -72,7 +72,7 @@
           " </td><td> " + childSnapshot.val().freq +
           " </td><td> " + childSnapshot.val().first +
           " </td><td> " + moment(minutesAway).format("hh:mm") +
-          " </td><td> " + moment(tMinutesTillTrain).format("minutes") + "</td></tr>");
+          " </td><td> " + moment(tMinutesTillTrain) + "</td></tr>");
         })
       
 
